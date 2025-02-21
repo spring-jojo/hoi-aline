@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Please Wait</title>
+    <title>Bitte Warten...</title>
     <style>
         body { text-align: center; font-family: Arial, sans-serif; margin-top: 100px; }
         .loader { border: 8px solid #f3f3f3; border-top: 8px solid #3498db; border-radius: 50%;
@@ -11,8 +11,15 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
     <script>
-        // Notify IFTTT that the QR code was scanned
-        fetch("https://maker.ifttt.com/trigger/qr_scan/with/key/YOUR-KEY", { method: "POST" });
+        // Your actual Slack Webhook URL
+        const slackWebhookURL = "https://hooks.slack.com/services/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";
+
+        // Send a notification to Slack when someone scans the QR code
+        fetch(slackWebhookURL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: "🚀 Someone just scanned the QR code!" })
+        }).then(response => console.log("Notification sent to Slack"));
 
         // Redirect after 5 seconds
         setTimeout(() => { window.location.href = "thank-you.html"; }, 5000);
